@@ -1,0 +1,41 @@
+name: Mirror Rootfs Cache
+
+  workflow_dispatch:
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+
+  release-start:
+    permissions:
+      contents: none
+    name: Prepare
+
+    runs-on: [Linux]
+    outputs:
+      rootfscache_version: ${{ steps.env-vars.outputs.rootfscache_version }}
+
+    steps:
+
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get latest cacher release
+        uses: armbian/actions/latest-cache@main
+
+      - name: Increment cache number
+        id: env-vars
+        run: |
+
+          mkdir -p rootfscache
+          echo "${{ env.ROOTFSCACHE_VERSION }}" | tee rootfscache/version
+          echo "rootfscache_version=${{ env.ROOTFSCACHE_VERSION }}" >> $GITHUB_OUTPUT
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: rootfscache
+          name: version
