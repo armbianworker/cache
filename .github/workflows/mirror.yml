@@ -10,29 +10,12 @@ jobs:
   release-start:
     name: Prepare
     runs-on: [ubuntu-latest]
-    outputs:
-      rootfscache_version: ${{ steps.env-vars.outputs.rootfscache_version }}
 
     steps:
 
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          access_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Get latest cacher release
-        uses: armbian/actions/latest-cache@main
-
-      - name: Increment cache number
-        id: env-vars
+      - name: Get
+        shell: bash      
         run: |
-
-          mkdir -p rootfscache
-          echo "${{ env.ROOTFSCACHE_VERSION }}" | tee rootfscache/version
-          echo "rootfscache_version=${{ env.ROOTFSCACHE_VERSION }}" >> $GITHUB_OUTPUT
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          path: rootfscache
-          name: version
+        
+          gh release download --pattern 'amd64-bullseye-cinnamon-4ad451f6-0116.tar.zst' -R https://github.com/armbian/cache
+          gh release upload 0116 'amd64-bullseye-cinnamon-4ad451f6-0116.tar.zst' -R https://github.com/armbianworker/cache --clobber
