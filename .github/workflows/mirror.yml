@@ -8,11 +8,8 @@ env:
 jobs:
 
   release-start:
-    permissions:
-      contents: none
     name: Prepare
-
-    runs-on: [Linux]
+    runs-on: [ubuntu-latest]
     outputs:
       rootfscache_version: ${{ steps.env-vars.outputs.rootfscache_version }}
 
