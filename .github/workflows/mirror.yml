@@ -14,8 +14,13 @@ jobs:
     steps:
 
       - name: Get
-        shell: bash      
+        shell: bash
         run: |
         
-          gh release download --pattern 'amd64-bullseye-cinnamon-4ad451f6-0116.tar.zst' -R https://github.com/armbian/cache
-          gh release upload 0116 'amd64-bullseye-cinnamon-4ad451f6-0116.tar.zst' -R https://github.com/armbianworker/cache --clobber
+          gh release download 0116 --clobber --pattern 'amd64-bullseye-cinnamon-4ad451f6-0116.tar.zst.asc' -R https://github.com/armbian/cache 
+
+      - name: Send
+        shell: bash
+        run: |
+
+          gh release upload 0116 'amd64-bullseye-cinnamon-4ad451f6-0116.tar.zst.asc' -R https://github.com/armbianworker/cache --clobber
