@@ -23,5 +23,5 @@ jobs:
         shell: bash
         run: |
 
-          gh release create 0116 -R https://github.com/armbianworker/cache
+          gh release view 0116 --repo github.com/armbian/cache || gh release create 0116 -R https://github.com/armbianworker/cache
           gh release upload 0116 'amd64-bullseye-cinnamon-4ad451f6-0116.tar.zst.asc' -R https://github.com/armbianworker/cache --clobber
