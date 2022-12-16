@@ -1,5 +1,5 @@
 name: Mirror Rootfs Cache
-
+on:
   workflow_dispatch:
 
 env:
