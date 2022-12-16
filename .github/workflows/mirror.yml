@@ -27,7 +27,8 @@ jobs:
           echo "Download"
           gh release download 0116 --clobber --pattern $line -R https://github.com/armbian/cache
           echo "Upload"
-          gh release upload 0116 'amd64-bullseye-cinnamon-4ad451f6-0116.tar.zst.asc' -R https://github.com/armbianworker/cache --clobber
+          gh release upload 0116 $line -R https://github.com/armbianworker/cache --clobber
           fi
           sleep 3
+          rm $line
           done)
