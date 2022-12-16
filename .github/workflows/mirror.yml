@@ -38,7 +38,7 @@ jobs:
           gh release view --json assets --repo github.com/armbian/cache 2>/dev/null | python3 -mjson.tool | sed '1,2d;$d' | json -ga name > a
           gh release view --json assets --repo github.com/armbianworker/cache 2>/dev/null | python3 -mjson.tool | sed '1,2d;$d' | json -ga name > b
         
-          diff --new-line-format="" --unchanged-line-format="" a b | grep torrent | (while read -r line; do
+          diff --new-line-format="" --unchanged-line-format="" a b | (while read -r line; do
           echo "Check if $line exists"
           if [[ -z $(gh release view ${LATEST} --repo github.com/armbianworker/cache | grep $line) ]]; then
               echo "Download"
